@@ -17,13 +17,14 @@ permitiendo realizar las siguientes busquedas:
 ## 🚀 Instalación
 
 1. Clona este repositorio en tu máquina local:
-   git clone https://github.com/walbertoRH3/LiterAlura.git
-
+   git clone https://github.com/JulioVargas26/Literalura_chanllenge.git
+   
 2. Abre el proyecto en tu IDE Preferido
+   
 3. Asegurate de tener Java instalado en tu sistema
 
 ## 💼 Uso
-Este proyecto tiene como finalidad educativa por lo que las funcionalidad son muy limitadas
+Este proyecto tiene como finalidad educativa y funcionalidad es muy limitada
 
 ## ✅ Tecnologías Utilizadas
 - Java 🔧
