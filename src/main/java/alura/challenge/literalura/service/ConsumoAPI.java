@@ -6,6 +6,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+/**
+ *      La clase ConsumnoAPI se encarga de realizar la peticion a la API.
+ * */
+
 public class ConsumoAPI {
     public String obtenerDatos(String url) {
         HttpClient client = HttpClient.newHttpClient();

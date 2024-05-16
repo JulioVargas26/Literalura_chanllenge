@@ -1,5 +1,10 @@
 package alura.challenge.literalura.model;
 
+/*
+    Finalmente el Enum de Lengauje nos pertite trabajar con los idiomas de los libros
+     de manera mas controlada y evitando
+     que el usuario introduzca datos inecesarios o no deseados.
+*/
 public enum Lenguaje {
     ES("es"),
     EN("en"),

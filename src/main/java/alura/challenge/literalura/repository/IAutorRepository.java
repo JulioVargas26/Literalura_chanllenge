@@ -8,6 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *      Esta interfaz extiende de JpaRepository
+ *      nos sirve para poder obtener los datos de nuestra base de datos
+ *      utilizando PQL
+ * */
 
 public interface IAutorRepository extends JpaRepository<Autor, Long> {
     @Query("SELECT a FROM Libro l JOIN l.autor a WHERE a.nombre LIKE %:nombre%")

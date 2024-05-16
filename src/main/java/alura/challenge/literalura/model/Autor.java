@@ -3,6 +3,12 @@ package alura.challenge.literalura.model;
 import jakarta.persistence.*;
 import java.util.List;
 
+/**
+ *      La clase Autor es una entidad
+ *      que nos permite mapear nuestra clase
+ *      a la base de datos que tenemos creada
+ * */
+
 @Entity
 @Table(name = "autor")
 public class Autor {

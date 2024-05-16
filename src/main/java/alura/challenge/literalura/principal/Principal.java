@@ -8,6 +8,11 @@ import alura.challenge.literalura.service.ConvierteDatos;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ *      Esta clase es la que contiene toda la logica de nuestro programa
+ *      y los metodos para que todas las opciones del menu funcionen de manera correcta
+ * */
+
 public class Principal {
     private static final String URL_BASE = "https://gutendex.com/books/";
     private final ConsumoAPI consumoAPI = new ConsumoAPI();
@@ -82,6 +87,15 @@ public class Principal {
         }
     }
 
+    /**
+     * el metodo buscarLibroPorTitulo nos permite buscar un libro de la API Gutendex
+     * mediante el titulo del libro,
+     * si el titulo se encuentra en la api nos devuelve los datos
+     * del libro manejados de forma personalizada,
+     * para esto usamos la libreria de jackson,
+     * si el libro se encuntra ademas de mostralo en pantalla tambien lo guarda en la base de datos
+     * y si no se encuentra manda un mensaje inidcando Libro no encontrado!
+     * */
     public void buscarLibroPorTitulo(){
         System.out.println("Introduce el nombre del libro que deseas buscar:");
         var nombre = teclado.nextLine();
@@ -132,6 +146,10 @@ public class Principal {
         }
     }
 
+     /**
+     * El metodo listarLibrosRegistrados nos permite obtener todos los libros registrados
+     * en nuestra BD y mostrarlos en pantalla con un formato personalizado.
+     * */
     public void listarLibrosRegistrados(){
         List<Libro> libros = repo.buscarTodosLosLibros();
         libros.forEach(l -> System.out.println(
@@ -144,6 +162,10 @@ public class Principal {
         ));
     }
 
+    /**
+     * El metodo listarAutoresRegistrados nos permite obtener todos los Autores registrados
+     * en nuestra BD y mostrarlos en pantalla con un formato personalizado.
+     * */
     public void listarAutoresRegistrados(){
         List<Autor> autores = repo.findAll();
         System.out.println();
@@ -156,6 +178,11 @@ public class Principal {
         ));
     }
 
+    /**
+     * El metodo listarAutoresVivos nos permite obtener todos los Autores registrados
+     * en nuestra BD los cuales tienen
+     * un año de fallecimeinto menor o igual que el año ingresado por el usuario
+     */
     public void listarAutoresVivos(){
         System.out.println("Introduce el año vivo del autor(es) que deseas buscar:");
         try{
@@ -178,6 +205,13 @@ public class Principal {
         }
     }
 
+    /**
+     * El metodo listarLibrosPorIdioma nos permite obtener los libro registrados
+     * en nuestra BD los cuales tienen el idioma introducido por el usuario,
+     * si el idioma no esta en nuestra BD
+     * se le informa al usuario que No hay libros registrados en ese idioma! ademas
+     * si no introduce un idioma en el formato valido se le envia un alerta.
+     * */
     public void listarLibrosPorIdioma(){
         var menu = """
                 Ingrese el idioma para buscar los libros:
@@ -210,6 +244,12 @@ public class Principal {
         }
     }
 
+    /**
+     * El metodo generarEstadisticas nos permite obtener las estadisticas de todos los libros
+     * que se encuentran en la API basandonos en las descargas,
+     * para esto excluimos aquellos libros
+     * que no tienen descargas registrada.
+     * */
     public void generarEstadisticas(){
         var json = consumoAPI.obtenerDatos(URL_BASE);
         var datos = conversor.obtenerDatos(json, Datos.class);
@@ -225,6 +265,10 @@ public class Principal {
         System.out.println("-----------------\n");
     }
 
+    /**
+     * El metodo top10Libros nos permite obtener los 10 libros mas descargados
+     * que se encuentran registrados en nuestra Base de datos.
+     * */
     public void top10Libros(){
         List<Libro> libros = repo.top10Libros();
         System.out.println();
@@ -238,6 +282,11 @@ public class Principal {
         ));
     }
 
+    /**
+     * El metodo buscarAutorPorNombre nos permite buscar los autores por un nombre
+     * que el usuario introduzca,
+     * esta busqueda la hacemos dentro de nuestra Base de datos
+     * */
     public void buscarAutorPorNombre(){
         System.out.println("Ingrese el nombre del autor que deseas buscar:");
         var nombre = teclado.nextLine();
@@ -255,6 +304,11 @@ public class Principal {
         }
     }
 
+    /**
+     * El metodo listarAutoresConOtrasConsultas nos permite reqalizar una busqueda de autores
+     * dentro de nuestra base de datos,
+     * por lo que el usuario elige una opcion y despues inserta un año para realizar la busqueda
+     * */
     public void listarAutoresConOtrasConsultas(){
         var menu = """
                 Ingrese la opcion por la cual desea listar los autores
@@ -280,6 +334,10 @@ public class Principal {
         }
     }
 
+    /**
+     * El metodo ListarAutoresPorNacimiento nos permite reqalizar una busqueda un autor
+     * por año de nacimiento.
+     * */
     public void ListarAutoresPorNacimiento(){
         System.out.println("Introduce el año de nacimiento que deseas buscar:");
         try{
@@ -301,6 +359,10 @@ public class Principal {
         }
     }
 
+    /**
+     * El metodo ListarAutoresPorFallecimiento nos permite reqalizar una busqueda un autor
+     * por año de fallecimiento.
+     * */
     public void ListarAutoresPorFallecimiento(){
         System.out.println("Introduce el año de fallecimiento que deseas buscar:");
         try{
@@ -323,44 +385,4 @@ public class Principal {
     }
 
 
-
-/*public void muestraElMenu(){
-        var json = consumoAPI.obtenerDatos(URL_BASE);
-        System.out.println(json);
-        var datos = conversor.obtenerDatos(json, Datos.class);
-        System.out.println(datos);
-
-        //Top 10 libros más descargados
-        System.out.println("Top 10 libros más descargados");
-        datos.resultados().stream()
-                .sorted(Comparator.comparing(DatosLibros::numeroDeDescargas).reversed())
-                .limit(10)
-                .map(l -> l.titulo().toUpperCase())
-                .forEach(System.out::println);
-
-        //Busqueda de libros por nombre
-        System.out.println("Ingrese el nombre del libro que desea buscar");
-        var tituloLibro = teclado.nextLine();
-        json = consumoAPI.obtenerDatos(URL_BASE+"?search=" + tituloLibro.replace(" ","+"));
-        var datosBusqueda = conversor.obtenerDatos(json, Datos.class);
-        Optional<DatosLibros> libroBuscado = datosBusqueda.resultados().stream()
-                .filter(l -> l.titulo().toUpperCase().contains(tituloLibro.toUpperCase()))
-                .findFirst();
-        if(libroBuscado.isPresent()){
-            System.out.println("Libro Encontrado ");
-            System.out.println(libroBuscado.get());
-        }else {
-            System.out.println("Libro no encontrado");
-        }
-
-        //Trabajando con estadisticas
-        DoubleSummaryStatistics est = datos.resultados().stream()
-                .filter(d -> d.numeroDeDescargas() >0 )
-                .collect(Collectors.summarizingDouble(DatosLibros::numeroDeDescargas));
-        System.out.println("Cantidad media de descargas: " + est.getAverage());
-        System.out.println("Cantidad máxima de descargas: "+ est.getMax());
-        System.out.println("Cantidad mínima de descargas: " + est.getMin());
-        System.out.println(" Cantidad de registros evaluados para calcular las estadisticas: " + est.getCount());
-
-    }*/
 }
