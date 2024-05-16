@@ -14,8 +14,8 @@ permitiendo realizar las siguientes busquedas:
 * Buscar autor por nombre
 * Listar autores con otras consultas
 
-> [!IMPORTANT]
-## 🚀 Instalación
+
+## 🚀 Instalación [!IMPORTANT]
 
 1. Clona este repositorio en tu máquina local:
    git clone https://github.com/JulioVargas26/Literalura_chanllenge.git
