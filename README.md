@@ -51,8 +51,8 @@ Para levantar y ejecutar el proyecto localmente, sigue estos pasos:
 ### 1. Clonar el Repositorio
 
 ```bash
-git clone [https://github.com/tu-usuario/LiterAlura.git](https://github.com/tu-usuario/LiterAlura.git)
-cd LiterAlura
+git clone [https://github.com/JulioVargas26/Literalura_chanllenge.git](https://github.com/JulioVargas26/Literalura_chanllenge.git)
+cd Literalura_chanllenge
 ```
 ### 2. Configurar la Base de Datos
 
